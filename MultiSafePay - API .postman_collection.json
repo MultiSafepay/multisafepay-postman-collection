@@ -1,0 +1,1269 @@
+{
+	"info": {
+		"_postman_id": "58a80082-8430-4277-a15e-a32e88911718",
+		"name": "MultiSafePay - API ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Gateways",
+			"item": [
+				{
+					"name": "All Gateways",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/gateways",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"gateways"
+							]
+						},
+						"description": "https://docs.multisafepay.com/api/#retrieve-all-gateways"
+					},
+					"response": []
+				},
+				{
+					"name": "Gateway by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/gateways/{id}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"gateways",
+								"{id}"
+							]
+						},
+						"description": "https://docs.multisafepay.com/api/#retrieve-a-gateway"
+					},
+					"response": []
+				},
+				{
+					"name": "iDeal Issuer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"nl_NL\",\n        \"ip_address\": \"89.20.162.110\",\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"address1\": \"Kraanspoor\",\n        \"house_number\": \"39C\",\n        \"zip_code\": \"1033SC\",\n        \"city\": \"Amsterdam\",\n        \"country\": \"NL\",\n        \"phone\": \"0208500500\",\n        \"email\": \"test@example.com\",\n        \"referrer\": \"http://test.com\",\n        \"user_agent\": \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36\"\n    },\n    \"second_chance\": {\n        \"send_email\" : true\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/issuers/ideal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"issuers",
+								"ideal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Redirect Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-2\",\n    \"gateway\": \"\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"nl_NL\",\n        \"ip_address\": \"89.20.162.110\",\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"address1\": \"Kraanspoor\",\n        \"house_number\": \"39C\",\n        \"zip_code\": \"1033SC\",\n        \"city\": \"Amsterdam\",\n        \"country\": \"NL\",\n        \"phone\": \"0208500500\",\n        \"email\": \"test@example.com\",\n        \"referrer\": \"http://test.com\",\n        \"user_agent\": \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36\"\n    },\n    \"second_chance\": {\n        \"send_email\" : true\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Create an order\nhttps://docs.multisafepay.com/api/#create-an-order"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Direct Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"order_id\": \"My-order-id-2\",\n    \"currency\": \"EUR\",\n    \"amount\": 1000,\n    \"gateway\": \"iDEAL\",\n    \"description\": \"product description\",\n    \"gateway_info\": {\n        \"issuer_id\": \"0021\"\n    },\n    \"payment_options\": {\n        \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": true\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "https://docs.multisafepay.com/api/#creates-a-direct-order"
+					},
+					"response": []
+				},
+				{
+					"name": "Recurring Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"My-order-id-3\",\n    \"gateway\": \"gatewaycode\",\n    \"recurring_id\": \"{recurring_id}\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Split Payments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-4\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Split Payment Order\",\n    \"affiliate\": {\n        \"split_payments\": [\n            {\n                \"merchant\": 1001001,\n                \"fixed\": 112,\n                \"description\": \"Fixed fee\"\n            },\n            {\n                \"merchant\": 1001001,\n                \"percentage\": 11.2,\n                \"description\": \"percentage fee\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tracktrace_code\": \"3SMSP0123456789\",\n    \"carrier\": \"MSP Logistics\",\n    \"ship_date\": \"01-01-1911\",\n    \"reason\": \"Fulfilled by warehouse\",\n    \"invoice_id\": \"AB12345\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{oder_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{oder_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve an order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{order_id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dynamic Template",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-5\",\n    \"gateway\": \"\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"manual\": \"false\",\n   \"payment_options\": {\n        \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\",\n        \"template_id\": \"123456\",\n        \"template\": {\n            \"version\": \"1.0\",\n            \"settings\": {\n                \"hide_logo\": false,\n                \"hide_flags\": false,\n                \"hide_powered\": false,\n                \"hide_cart\": false,\n                \"hide_btn_cancel\": false,\n                \"hide_cc_logos\": false,\n                \"hide_btn_all_methods\": false\n            },\n            \"header\": {\n                \"logo\": {\n                    \"image\": \"\"\n                },\n                \"cover\": {\n                    \"image\": \"\"\n                },\n                \"background\": \"\",\n                \"text\": \"#333\"\n            },\n            \"body\": {\n                \"text\": \"#ab141b\",\n                \"background\": \"#fdfcfc\",\n                \"link\": {\n                    \"text\": \"#00acf1\",\n                    \"hover\": {\n                        \"text\": \"\",\n                        \"border\": \"\"\n                    }\n                }\n            },\n            \"container\": {\n                \"text\": \"#ffffff\",\n                \"label\": \"#a4a3a3\",\n                \"background\": \"#080808\",\n                \"link\": {\n                    \"text\": \"\"\n                }\n            },\n            \"cart\": {\n                \"text\": \"#333333\",\n                \"label\": \"#8b8b8b\",\n                \"background\": \"#ffffff\",\n                \"border\": \"#333333\"\n            },\n            \"payment_form\": {\n                \"text\": \"#ab141b\",\n                \"background\": \"#ffffff\",\n                \"border\": \"#333333\",\n                \"inputs\": {\n                    \"border\": \"#bdbbbb\",\n                    \"label\": \"#8b8b8b\"\n                }\n            },\n            \"buttons\": {\n                \"payment_method\": {\n                    \"background\": \"#ffffff\",\n                    \"text\": \"#ab141b\",\n                    \"border\": \"#333333\",\n                    \"hover\": {\n                        \"background\": \"#ab141b\",\n                        \"text\": \"#ffffff\",\n                        \"border\": \"\"\n                    },\n                    \"active\": {\n                        \"background\": \"\",\n                        \"text\": \"\",\n                        \"border\": \"\"\n                    }\n                },\n                \"secondary\": {\n                    \"background\": \"#00acf1\",\n                    \"text\": \"#ffffff\",\n                    \"hover\": {\n                        \"background\": \"\",\n                        \"text\": \"\"\n                    }\n                },\n                \"primary\": {\n                    \"background\": \"#cccccc\",\n                    \"text\": \"#ffffff\",\n                    \"hover\": {\n                        \"background\": \"\",\n                        \"text\": \"\"\n                    }\n                }\n            }\n        }\n    },\n    \"customer\": {\n        \"email\": \"test@example.com\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "https://docs.multisafepay.com/api/#dynamic-template"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Methods",
+			"item": [
+				{
+					"name": "AfterPay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"gateway\": \"AFTERPAY\",\n    \"order_id\": \"my-order-id-1\",\n    \"currency\": \"EUR\",\n    \"amount\": \"37380\",\n    \"description\": \"Test Order Description\",\n    \"var1\": \"\",\n    \"var2\": \"\",\n    \"var3\": \"\",\n    \"items\": \"\",\n    \"manual\": \"false\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"nl_NL\",\n        \"ip_address\": \"31.148.195.10\",\n        \"forwarded_ip\": \"\",\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"address1\": \"Neherkade\",\n        \"address2\": \"\",\n        \"house_number\": \"1/XI\",\n        \"zip_code\": \"2521VA\",\n        \"city\": \"Gravenhage\",\n        \"state\": \"\",\n        \"country\": \"NL\",\n        \"email\": \"rejection@afterpay.nl\",\n        \"referrer\": \"http://multisafepay-demo.com/plugingroup/dev/magento/1901/checkout/cart/\",\n        \"user_agent\": \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36\"\n    },\n    \"delivery\": {\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"address1\": \"Neherkade\",\n        \"address2\": \"\",\n        \"house_number\": \"1/XI\",\n        \"zip_code\": \"2521VA\",\n        \"city\": \"Gravenhage\",\n        \"state\": \"\",\n        \"country\": \"NL\",\n        \"phone\": \"0612345678\",\n        \"email\": \"rejection@afterpay.nl\"\n    },\n    \"gateway_info\": {\n        \"birthday\": \"1970-07-10\",\n        \"gender\": \"mr\",\n        \"phone\": \"0612345678\",\n        \"email\": \"rejection@afterpay.nl\"\n    },\n    \"shopping_cart\": {\n        \"items\": [\n            {\n                \"name\": \"Geometric Candle Holders\",\n                \"description\": \"\",\n                \"unit_price\": \"90\",\n                \"quantity\": \"3\",\n                \"merchant_item_id\": \"1111\",\n                \"tax_table_selector\": \"BTW21\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"12\"\n                }\n            },\n            {\n                \"name\": \"Nice apple\",\n                \"description\": \"\",\n                \"unit_price\": \"35\",\n                \"quantity\": \"1\",\n                \"merchant_item_id\": \"666666\",\n                \"tax_table_selector\": \"BTW6\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"20\"\n                }\n            },\n            {\n                \"name\": \"Flat Rate - Fixed\",\n                \"description\": \"Shipping\",\n                \"unit_price\": \"10.0000\",\n                \"quantity\": \"1\",\n                \"merchant_item_id\": \"msp-shipping\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"0\"\n                }\n            }\n        ]\n    },\n    \"checkout_options\": {\n        \"tax_tables\": {\n            \"default\": {\n                \"shipping_taxed\": \"true\",\n                \"rate\": \"0.21\"\n            },\n            \"alternate\": [\n                {\n                    \"name\": \"BTW21\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.21\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"BTW6\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.06\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"BTW0\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"0.0000\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"0.0000\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"FEE\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"none\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"2\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.0825\",\n                            \"country\": \"US\"\n                        },\n                        {\n                            \"rate\": \"0.08375\",\n                            \"country\": \"US\"\n                        }\n                    ]\n                }\n            ]\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alipay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"ALIPAY\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bancontact",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"MISTERCASH\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bank Transfer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"BANKTRANS\",\n    \"currency\": \"EUR\",\n    \"amount\": \"9743\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Belfius",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"BELFIUS\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Credit Cards",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"CREDITCARD\",\n    \"currency\": \"EUR\",\n    \"amount\": \"9743\",\n    \"description\": \"Test Order Description\",\n   \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"gateway_info\": {\n        \"card_number\": \"4012001038443335\",\n        \"card_holder_name\": \"Test Holder Name\",\n        \"card_expiry_date\": \"2022\",\n        \"card_cvc\": \"123\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\",\n        \"ip_address\": \"31.148.195.10\",\n        \"forwarded_ip\": \"\",\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"address1\": \"Neherkade\",\n        \"house_number\": \"XI\",\n        \"zip_code\": \"2521VA\",\n        \"city\": \"Gravenhage\",\n        \"state\": \"\",\n        \"country\": \"NL\",\n        \"email\": \"test@example.com\",\n        \"referrer\": \"http://example.com\",\n        \"user_agent\": \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Direct Debit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"DIRDEB\",\n    \"currency\": \"EUR\",\n    \"amount\": \"9743\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\",\n        \"ip_address\": \"31.148.195.10\",\n        \"forwarded_ip\": \"\"\n    },\n    \"gateway_info\": {\n        \"account_id\": \"NL87ABNA0000000001\",\n        \"account_holder_name\": \"J Janse\",\n        \"account_holder_city\": \"Amsterdam\",\n        \"account_holder_country\": \"NL\",\n        \"account_holder_iban\": \"NL87ABNA0000000001\",\n        \"account_holder_bic\": \"NL\",\n        \"emandate\": \"madateID\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dotpay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"DOTPAY\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "E-invoicing",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"gateway\": \"EINVOICE\",\n    \"order_id\": \"my-order-id-1\",\n    \"currency\": \"EUR\",\n    \"amount\": \"26000\",\n    \"description\": \"Test Order Description\",\n    \"var1\": \"\",\n    \"var2\": \"\",\n    \"var3\": \"\",\n    \"items\": \"\",\n    \"manual\": \"false\",\n    \"gateway_info\": {\n        \"birthday\": \"1980-01-30\",\n        \"bankaccount\": \"0417164300\",\n        \"phone\": \"0208500500\",\n        \"email\": \"example@example.com\"\n    },\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"us\",\n        \"ip_address\": \"31.148.195.10\",\n        \"forwarded_ip\": \"\",\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"address1\": \"Neherkade\",\n        \"address2\": \"\",\n        \"house_number\": \"39c\",\n        \"zip_code\": \"1033 SC\",\n        \"city\": \"Gravenhage\",\n        \"state\": \"\",\n        \"country\": \"NL\",\n        \"email\": \"test@example.com\",\n        \"referrer\": \"http://www.example.com\",\n        \"user_agent\": \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36\"\n    },\n    \"delivery\": {\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"address1\": \"Neherkade\",\n        \"address2\": \"\",\n        \"house_number\": \"39c\",\n        \"zip_code\": \"1033 SC\",\n        \"city\": \"Gravenhage\",\n        \"state\": \"\",\n        \"country\": \"NL\",\n        \"phone\": \"\",\n        \"email\": \"\"\n    },\n    \"shopping_cart\": {\n        \"items\": [\n            {\n                \"name\": \"Item demo 1\",\n                \"description\": \"\",\n                \"unit_price\": \"90\",\n                \"quantity\": \"2\",\n                \"merchant_item_id\": \"666666\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"12\"\n                }\n            },\n            {\n                \"name\": \"Item demo 2\",\n                \"description\": \"\",\n                \"unit_price\": \"35\",\n                \"quantity\": \"2\",\n                \"merchant_item_id\": \"666666\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"20\"\n                }\n            },\n            {\n                \"name\": \"Item shipping - Flat Rate - Fixed\",\n                \"description\": \"Shipping\",\n                \"unit_price\": \"10\",\n                \"quantity\": \"1\",\n                \"merchant_item_id\": \"msp-shipping\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"0\"\n                }\n            }\n        ]\n    },\n    \"checkout_options\": {\n        \"tax_tables\": {\n            \"default\": {\n                \"shipping_taxed\": \"true\",\n                \"rate\": \"0.21\"\n            },\n            \"alternate\": [\n                {\n                    \"name\": \"BTW21\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.21\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"BTW6\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.06\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"BTW0\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"0.0000\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"0.0000\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"FEE\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"none\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"2\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.0825\",\n                            \"country\": \"US\"\n                        },\n                        {\n                            \"rate\": \"0.08375\",\n                            \"country\": \"NL\"\n                        }\n                    ]\n                }\n            ]\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EPS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"EPS\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n   \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gift card",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id\",\n    \"gateway\": \"VVVGIFTCRD\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"manual\": \"false\",\n    \"payment_options\": {\n        \"notification_url\": \"http://www.example.com/client/json-live/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.comclient/json-live/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/json-live/notification?type=cancel\",\n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"nl_NL\",\n        \"ip_address\": \"89.20.162.110\",\n        \"country\": \"NL\",\n        \"email\": \"test@example.com\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Giropay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"GIROPAY\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "iDEAL Redirect",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"IDEAL\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "iDEAL Direct",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"order_id\": \"apitool_504957\",\n    \"currency\": \"EUR\",\n    \"amount\": 1000,\n    \"gateway\": \"iDEAL\",\n    \"description\": \"product description\",\n    \"custom_info\": {},\n    \"gateway_info\": {\n        \"issuer_id\": \"0031\"\n    },\n     \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "iDEAL QR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"iDEALQR\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"gateway_info\": {\n        \"qr_size\": 250,\n        \"allow_multiple\": false,\n        \"allow_change_amount\": false,\n        \"max_amount\": 1000\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ING Home Pay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"INGHOME\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "KBC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"KBC\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Klarna",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"gateway\": \"KLARNA\",\n    \"order_id\": \"my-order-id-1\",\n    \"currency\": \"EUR\",\n    \"amount\": \"26000\",\n    \"description\": \"Test Order Description\",\n    \"var1\": \"\",\n    \"var2\": \"\",\n    \"var3\": \"\",\n    \"items\": \"\",\n    \"manual\": \"false\",\n    \"gateway_info\": {\n        \"birthday\": \"1970-07-10\",\n        \"gender\": \"male\",\n        \"phone\": \"0612345678\",\n        \"email\": \"youremail@email.com\"\n    },\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\",\n        \"ip_address\": \"31.148.195.10\",\n        \"forwarded_ip\": \"\",\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"address1\": \"Neherkade\",\n        \"address2\": \"\",\n        \"house_number\": \"39c\",\n        \"zip_code\": \"1033 SC\",\n        \"city\": \"Gravenhage\",\n        \"state\": \"\",\n        \"country\": \"NL\",\n        \"email\": \"test@example.com\",\n        \"referrer\": \"http://www.example.com\",\n        \"user_agent\": \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36\"\n    },\n    \"delivery\": {\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"address1\": \"Neherkade\",\n        \"address2\": \"\",\n        \"house_number\": \"39c\",\n        \"zip_code\": \"1033 SC\",\n        \"city\": \"Gravenhage\",\n        \"state\": \"\",\n        \"country\": \"NL\",\n        \"phone\": \"\",\n        \"email\": \"\"\n    },\n    \"shopping_cart\": {\n        \"items\": [\n            {\n                \"name\": \"Item demo 1\",\n                \"description\": \"\",\n                \"unit_price\": \"90\",\n                \"quantity\": \"2\",\n                \"merchant_item_id\": \"111111\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"12\"\n                }\n            },\n            {\n                \"name\": \"Item demo 2\",\n                \"description\": \"\",\n                \"unit_price\": \"35\",\n                \"quantity\": \"2\",\n                \"merchant_item_id\": \"666666\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"20\"\n                }\n            },\n            {\n                \"name\": \"Item shipping - Flat Rate - Fixed\",\n                \"description\": \"Shipping\",\n                \"unit_price\": \"10\",\n                \"quantity\": \"1\",\n                \"merchant_item_id\": \"msp-shipping\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"0\"\n                }\n            }\n        ]\n    },\n    \"checkout_options\": {\n        \"tax_tables\": {\n            \"default\": {\n                \"shipping_taxed\": \"true\",\n                \"rate\": \"0.21\"\n            },\n            \"alternate\": [\n                {\n                    \"name\": \"BTW21\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.21\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"BTW6\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.06\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"BTW0\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"0.0000\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"0.0000\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"FEE\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"none\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"2\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.0825\",\n                            \"country\": \"US\"\n                        },\n                        {\n                            \"rate\": \"0.08375\",\n                            \"country\": \"NL\"\n                        }\n                    ]\n                }\n            ]\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay After Delivery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"gateway\": \"PAYAFTER\",\n    \"order_id\": \"my-order-id-1\",\n    \"currency\": \"EUR\",\n    \"amount\": \"26000\",\n    \"description\": \"Test Order Description\",\n    \"var1\": \"\",\n    \"var2\": \"\",\n    \"var3\": \"\",\n    \"items\": \"\",\n    \"manual\": \"false\",\n    \"gateway_info\": {\n        \"birthday\": \"1980-01-30\",\n        \"bankaccount\": \"0417164300\",\n        \"phone\": \"0208500500\",\n        \"email\": \"example@example.com\"\n    },\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"us\",\n        \"ip_address\": \"31.148.195.10\",\n        \"forwarded_ip\": \"\",\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"address1\": \"Neherkade\",\n        \"address2\": \"\",\n        \"house_number\": \"39c\",\n        \"zip_code\": \"1033 SC\",\n        \"city\": \"Gravenhage\",\n        \"state\": \"\",\n        \"country\": \"NL\",\n        \"email\": \"test@example.com\",\n        \"referrer\": \"http://www.example.com\",\n        \"user_agent\": \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36\"\n    },\n    \"delivery\": {\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"address1\": \"Neherkade\",\n        \"address2\": \"\",\n        \"house_number\": \"39c\",\n        \"zip_code\": \"1033 SC\",\n        \"city\": \"Gravenhage\",\n        \"state\": \"\",\n        \"country\": \"NL\",\n        \"phone\": \"\",\n        \"email\": \"\"\n    },\n    \"shopping_cart\": {\n        \"items\": [\n            {\n                \"name\": \"Item demo 1\",\n                \"description\": \"\",\n                \"unit_price\": \"90\",\n                \"quantity\": \"2\",\n                \"merchant_item_id\": \"111111\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"12\"\n                }\n            },\n            {\n                \"name\": \"Item demo 2\",\n                \"description\": \"\",\n                \"unit_price\": \"35\",\n                \"quantity\": \"2\",\n                \"merchant_item_id\": \"666666\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"20\"\n                }\n            },\n            {\n                \"name\": \"Item shipping - Flat Rate - Fixed\",\n                \"description\": \"Shipping\",\n                \"unit_price\": \"10\",\n                \"quantity\": \"1\",\n                \"merchant_item_id\": \"msp-shipping\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"0\"\n                }\n            }\n        ]\n    },\n    \"checkout_options\": {\n        \"tax_tables\": {\n            \"default\": {\n                \"shipping_taxed\": \"true\",\n                \"rate\": \"0.21\"\n            },\n            \"alternate\": [\n                {\n                    \"name\": \"BTW21\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.21\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"BTW6\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.06\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"BTW0\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"0.0000\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"0.0000\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"FEE\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"none\",\n                    \"standalone\": false,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.00\"\n                        }\n                    ]\n                },\n                {\n                    \"name\": \"2\",\n                    \"standalone\": true,\n                    \"rules\": [\n                        {\n                            \"rate\": \"0.0825\",\n                            \"country\": \"US\"\n                        },\n                        {\n                            \"rate\": \"0.08375\",\n                            \"country\": \"NL\"\n                        }\n                    ]\n                }\n            ]\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paypal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"PAYPAL\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Santander Betaalplan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"SANTANDER\",\n    \"currency\": \"EUR\",\n    \"amount\": 50000,\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\",\n        \"ip_address\": \"31.148.195.10\",\n        \"forwarded_ip\": \"\",\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"address1\": \"Neherkade\",\n        \"house_number\": \"XI\",\n        \"zip_code\": \"2521VA\",\n        \"city\": \"Gravenhage\",\n        \"state\": \"\",\n        \"country\": \"NL\",\n        \"email\": \"test@example.com\",\n        \"referrer\": \"http://example.com\",\n        \"user_agent\": \"Mozilla//5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36\"\n    },\n    \"gateway_info\": {\n        \"birthday\": \"1970-07-10\",\n        \"gender\": \"male\",\n        \"phone\": \"0612345678\",\n        \"email\": \"youremail@email.com\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SOFORT",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"direct\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"DIRECTBANK\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"en_US\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trustly",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"currency\": \"EUR\",\n    \"amount\": 1000,\n    \"gateway\": \"TRUSTLY\",\n    \"description\": \"Test Order Description\",\n    \"custom_info\": {},\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"country\": \"NL\",\n        \"email\": \"test@example.com\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TrustPay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"currency\": \"CZK\",\n    \"amount\": 1000,\n    \"gateway\": \"\",\n    \"description\": \"Test Order Description\",\n    \"custom_info\": {},\n    \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"first_name\": \"Testperson-nl\",\n        \"last_name\": \"Approved\",\n        \"country\": \"CZ\",\n        \"email\": \"test@example.com\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded credit card",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"redirect\",\n    \"order_id\": \"my-order-id-1\",\n    \"gateway\": \"VISA\",\n    \"currency\": \"EUR\",\n    \"amount\": \"1000\",\n    \"description\": \"Test Order Description\",\n     \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": \"\"\n    },\n    \"customer\": {\n        \"locale\": \"it_IT\",\n         \"ip_address\": \"31.148.195.10\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "https://docs.multisafepay.com/api/#branded-credit-card\n\nOptions: CREDITCARD, VISA and MASTERCARD"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "Refund",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"currency\": \"EUR\",\n    \"amount\": \"8\",\n    \"description\": \"Your refund description\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{orderId}}/refunds",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}",
+								"refunds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refund with shopping cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"checkout_data\": {\n        \"items\": [\n            {\n                \"name\": \"Geometric Candle Holders\",\n                \"description\": \"\",\n                \"unit_price\": \"90\",\n                \"quantity\": \"3\",\n                \"merchant_item_id\": \"111111\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"12\"\n                }\n            },\n            {\n                \"name\": \"Geometric Candle Holders\",\n                \"description\": \"\",\n                \"unit_price\": \"90\",\n                \"quantity\": \"-2\",\n                \"merchant_item_id\": \"111111\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"12\"\n                }\n            },\n            {\n                \"name\": \"Nice apple\",\n                \"description\": \"\",\n                \"unit_price\": \"35\",\n                \"quantity\": \"1\",\n                \"merchant_item_id\": \"666666\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"20\"\n                }\n            },\n            {\n                \"name\": \"Flat Rat - Fixed\",\n                \"description\": \"Shipping\",\n                \"unit_price\": \"10\",\n                \"quantity\": \"1\",\n                \"merchant_item_id\": \"msp-shipping\",\n                \"tax_table_selector\": \"none\",\n                \"weight\": {\n                    \"unit\": \"KG\",\n                    \"value\": \"0\"\n                }\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{orderId}}/refunds",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}",
+								"refunds"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Partners",
+			"item": [
+				{
+					"name": "Create a partner",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product\": \"connect300\",\n    \"company_name\": \"Company name Partner\",\n    \"address1\": \"Kraanspoor\",\n    \"address2\": \"\",\n    \"zip_code\": \"1033SC\",\n    \"city\": \"Amsterdam\",\n    \"email\": \"\",\n    \"country\": \"NL\",\n    \"phone\": \"0205800500\",\n    \"password\": \"test123\",\n    \"address_apartment\": \"\",\n    \"software_partner\": \"Anders\",\n    \"partner\": {\n        \"api_user\": \"partner-account-user-name\",\n        \"api_pass\": \"partner-account-password\"\n    },\n    \"contact_details\": {\n        \"title\": \"Mr\",\n        \"name\": \"your name\"\n    },\n    \"bank_details\": {\n        \"account_number\": \"0123456789\",\n        \"bank_name\": \"Rabobank\",\n        \"country\": \"NL\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/partners",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"partners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a website for a partner",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"partner\": {\n      \"api_user\": \"partner-account-user-name\",\n      \"api_pass\": \"partner-account-password\"\n    },\n    \"url\": \"https://yourpartnerdomain.com\",\n    \"return_url\": \"http://www.example.com/client/notification?type=notification\",\n    \"description\": \"\",\n    \"category\": \"100\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/websites",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"websites"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Server to server",
+			"item": [
+				{
+					"name": "3D Enabled Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"direct\",\n  \"gateway\": \"CREDITCARD\",\n  \"order_id\": \"order-1\",\n  \"currency\": \"EUR\",\n  \"amount\": 1000,\n  \"description\": \"product description\",\n  \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": true\n  },\n  \"customer\": {\n    \"locale\": \"nl_NL\",\n    \"ip_address\": \"127.0.0.1\",\n    \"first_name\": \"Testperson-nl\",\n    \"last_name\": \"Approved\",\n    \"address1\": \"Kraanspoor\",\n    \"address2\": \"\",\n    \"house_number\": \"39\",\n    \"zip_code\": \"1033SC\",\n    \"city\": \"Amsterdam\",\n    \"state\": \"\",\n    \"country\": \"NL\",\n    \"email\": \"example@multisafepay.com\",\n    \"referrer\": \"http://example.com\",\n    \"user_agent\": \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36\",\n    \"reference\": \"shopper-456\"\n  },\n  \"gateway_info\": {\n    \"card_number\": \"4111111111111111\",\n    \"card_holder_name\": \"Holder Name\",\n    \"card_expiry_date\": \"1612\",\n    \"cvc\": \"123\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3D disabled or NON 3D transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"direct\",\n  \"gateway\": \"CREDITCARD\",\n  \"order_id\": \"order-1\",\n  \"currency\": \"EUR\",\n  \"amount\": 1000,\n  \"description\": \"product description\",\n  \"payment_options\": {\n       \"notification_url\": \"http://www.example.com/client/notification?type=notification\",\n        \"redirect_url\": \"http://www.example.com/client/notification?type=redirect\",\n        \"cancel_url\": \"http://www.example.com/client/notification?type=cancel\", \n        \"close_window\": true\n  },\n  \"customer\": {\n    \"locale\": \"nl_NL\",\n    \"ip_address\": \"127.0.0.1\",\n    \"first_name\": \"Testperson-nl\",\n    \"last_name\": \"Approved\",\n    \"address1\": \"Kraanspoor\",\n    \"address2\": \"\",\n    \"house_number\": \"39\",\n    \"zip_code\": \"1033SC\",\n    \"city\": \"Amsterdam\",\n    \"state\": \"\",\n    \"country\": \"NL\",\n    \"email\": \"example@multisafepay.com\",\n    \"referrer\": \"http://example.com\",\n    \"user_agent\": \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36\",\n     \"reference\": \"shopper-456\"\n  },\n  \"gateway_info\": {\n    \"card_number\": \"4111111111111111\",\n    \"card_holder_name\": \"Holder Name\",\n    \"card_expiry_date\": \"1612\",\n    \"cvc\": \"123\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/categories",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chargeback",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"\",\n    \"base64\": \"\",\n    \"description\": \"\",\n    \"name\": \"\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders/{{order_id}}}/files",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						"{{order_id}}}",
+						"files"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "api_key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0b386654-59d8-4777-8d4c-4e48b3c7cada",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "90fec294-f278-4844-aace-ebfb32e16206",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "1a6d8c75-5020-4b0f-9ca6-dc24f3fc0b15",
+			"key": "order_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "8d57572e-8924-4125-b091-0c381db4e9bd",
+			"key": "baseUrl",
+			"value": "https://testapi.multisafepay.com/v1/json/",
+			"type": "string"
+		}
+	]
+}
