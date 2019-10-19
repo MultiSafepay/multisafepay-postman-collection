@@ -1262,7 +1262,7 @@
 		{
 			"id": "8d57572e-8924-4125-b091-0c381db4e9bd",
 			"key": "baseUrl",
-			"value": "https://testapi.multisafepay.com/v1/json/",
+			"value": "https://testapi.multisafepay.com/v1/json",
 			"type": "string"
 		}
 	]
